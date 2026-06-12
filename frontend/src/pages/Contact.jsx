@@ -76,9 +76,9 @@ const Contact = () => {
                     Address
                   </h3>
                   <p className="text-gray-600">
-                    123 Restaurant Street
-                    <br />
-                    Food District, City 12345
+                      647N/P-001A, 19KH-525, Nahar Road, Madiyaon,<br />
+      Opposite JP Hospital, Jankipuram, Lucknow, UP 226021
+                    
                   </p>
                 </div>
               </div>
@@ -89,8 +89,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                  <p className="text-gray-600">+1 (555) 987-6543</p>
+                  <p className="text-gray-600"> Mobile:+91 8853928885</p>
+                  <p className="text-gray-600">Watshap:+91 8853608585</p>
                 </div>
               </div>
 
@@ -100,8 +100,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Email</h3>
-                  <p className="text-gray-600">info@restaurant.com</p>
-                  <p className="text-gray-600">reservations@restaurant.com</p>
+                  <p className="text-gray-600">vishwassweetsinfo@gmail.com</p>
+            
                 </div>
               </div>
 
@@ -114,10 +114,7 @@ const Contact = () => {
                     Opening Hours
                   </h3>
                   <p className="text-gray-600">
-                    Monday - Friday: 11:00 AM - 10:00 PM
-                  </p>
-                  <p className="text-gray-600">
-                    Saturday - Sunday: 10:00 AM - 11:00 PM
+                    Monday - Sunday: 6:00 AM - 11:00 PM
                   </p>
                 </div>
               </div>

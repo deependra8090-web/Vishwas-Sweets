@@ -7,9 +7,8 @@ const Hero = () => {
     <section
       className="relative h-[90vh] flex items-center justify-center bg-center bg-cover"
       style={{
-        backgroundImage:
-          "url('https://github.com/deependra8090/restaurent/blob/main/r1.jpg?raw=true')",
-      }}
+    backgroundImage: "url('/r.jpg')",
+  }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
