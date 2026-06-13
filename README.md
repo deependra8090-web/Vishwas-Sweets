@@ -1,5 +1,4 @@
-
-#🍽️ Vishwas Sweets
+# 🍽️ Vishwas Sweets
 
 Vishwas Sweets is a full-stack restaurant management and food ordering platform where customers can **browse menus**, **place orders**, **reserve tables**, and **manage their food cart seamlessly**.
 
@@ -107,9 +106,9 @@ Vishwas-Sweets/
 │
 ├── .env
 ├── .gitignore
-└── README.md.
+└── README.md
 
-
+---
 
 ## 👨‍💻 Author
 
