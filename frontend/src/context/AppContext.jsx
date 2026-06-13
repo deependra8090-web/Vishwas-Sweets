@@ -51,24 +51,34 @@ const AppContextProvider = ({ children }) => {
   const cartCount = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
   // ✅ Add to cart
-  const addToCart = async (menuId) => {
-    try {
-      const { data } = await axios.post("/api/cart/add", {
+ const addToCart = async (menuId) => {
+  if (!user) { // or !isAuthenticated
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const { data } = await axios.post(
+      "/api/cart/add",
+      {
         menuId,
         quantity: 1,
-      });
-      if (data.success) {
-        toast.success(data.message);
-        fetchCartData();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error("Add to cart error:", error);
-      toast.error("Something went wrong!");
-    }
-  };
+      },
+      { withCredentials: true }
+    );
 
+    if (data.success) {
+      toast.success("Item added to cart");
+    }
+  } catch (error) {
+    if (error.response?.status === 401) {
+      navigate("/login");
+      return;
+    }
+
+    toast.error(error.response?.data?.message || "Something went wrong");
+  }
+};
   // ✅ Fetch categories
   const fetchCategories = async () => {
     try {
