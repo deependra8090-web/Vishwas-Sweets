@@ -69,6 +69,7 @@ const AppContextProvider = ({ children }) => {
 
     if (data.success) {
       toast.success("Item added to cart");
+      await fetchCartData(); // Refresh cart data after adding item
     }
   } catch (error) {
     if (error.response?.status === 401) {
