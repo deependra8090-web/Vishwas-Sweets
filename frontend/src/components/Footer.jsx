@@ -36,11 +36,11 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-2">
               <FaPhoneAlt />
-              +91 98765 43210
+              +91 8853928885
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope />
-              info@vishwassweets.com
+             vishwassweetsinfo@gmail.com
             </li>
           </ul>
         </div>
