@@ -7,7 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   console.log("orders", orders);
 
-  const fecthOrders = async () => {
+  const fetchOrders = async () => {
     try {
       const { data } = await axios.get("/api/order/orders");
       console.log("dataa", data);
@@ -31,7 +31,7 @@ const Orders = () => {
 
       if (data.success) {
         toast.success(data.message);
-        fecthOrders();
+        fetchOrders();
       } else {
         toast.error(data.message);
       }
@@ -44,7 +44,7 @@ const Orders = () => {
 
   useEffect(() => {
     if (admin) {
-      fecthOrders();
+      fetchOrders();
     }
   }, []);
   return (
@@ -71,7 +71,7 @@ const Orders = () => {
                   {item?.address}
                 </p>
                 <p className="text-gray-600 hidden md:block">
-                  ${item?.totalAmount}
+                  ₹ {item?.totalAmount}
                 </p>
                 <p className="text-gray-600 hidden md:block">
                   {item.paymentMethod}
@@ -111,7 +111,7 @@ const Orders = () => {
                         QTY:{menu?.quantity}
                       </p>
                       <p className="text-sm text-gray-600">
-                        $:{menu?.menuItem?.price}
+                        ₹:{menu?.menuItem?.price}
                       </p>
                     </div>
                   </div>

@@ -71,7 +71,7 @@ const Checkout = () => {
                 checked={paymentMethod === "Pay at hotel"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <span>Pay at hotel</span>
+              <span>Cash On Delivery</span>
             </label>
 
             <label className="flex items-center space-x-3">
