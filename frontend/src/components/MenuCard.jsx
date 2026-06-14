@@ -7,7 +7,7 @@ const MenuCard = ({ menu }) => {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
       {/* Image Section  */}
       <div
-        onClick={() => navigate(`/menu-details/${menu._id}`)}
+        onClick={() => navigate(`/menu-details/₹{menu._id}`)}
         className="relative h-56 overflow-hidden cursor-pointer"
       >
         <img
