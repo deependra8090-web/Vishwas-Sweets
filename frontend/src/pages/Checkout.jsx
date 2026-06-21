@@ -6,6 +6,41 @@ const Checkout = () => {
   const { totalPrice, axios, navigate } = useContext(AppContext);
   const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Pay at hotel");
+  const handlePayment = async () => {
+
+    const { data } = await axios.post(
+        `${VITE_BASE_URL}/api/payment/create-order`,
+        {
+            amount: totalAmount
+        }
+    );
+
+    const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+
+        amount: data.amount,
+        currency: data.currency,
+        order_id: data.id,
+
+        name: "Vishwas Sweets",
+
+        handler: async function (response) {
+
+            const verify = await axios.post(
+                `${VITE_BASE_URL}/api/payment/verify-payment`,
+                response
+            );
+
+            if (verify.data.success) {
+                toast.success("Payment Successful");
+                navigate("/my-orders");
+            }
+        }
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
+};
 
   const handleCheckout = async () => {
     if (!address) {
@@ -83,7 +118,9 @@ const Checkout = () => {
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 className="text-green-600 focus:ring-green-500"
               />
-              <span>Online Payment</span>
+           <button onClick={handlePayment}>
+    Pay Online
+</button>
             </label>
           </div>
         </div>
