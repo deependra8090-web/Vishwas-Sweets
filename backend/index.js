@@ -10,7 +10,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import dotenv from "dotenv";
 import connectCloudinary from "./config/cloudinary.js";
-const paymentRoutes = require("./routes/paymentRoute");
+import paymentRoutes from "./routes/paymentRoute.js";
 dotenv.config();
 const app = express();
 // database connection
