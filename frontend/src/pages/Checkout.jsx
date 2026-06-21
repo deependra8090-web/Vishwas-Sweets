@@ -9,9 +9,9 @@ const Checkout = () => {
   const handlePayment = async () => {
 
     const { data } = await axios.post(
-        `${VITE_BASE_URL}/api/payment/create-order`,
+        `${import.meta.env.VITE_BASE_URL}/api/payment/create-order`,
         {
-            amount: totalAmount
+            amount: totalPrice,
         }
     );
 
@@ -27,11 +27,16 @@ const Checkout = () => {
         handler: async function (response) {
 
             const verify = await axios.post(
-                `${VITE_BASE_URL}/api/payment/verify-payment`,
+                `${import.meta.env.VITE_BASE_URL}/api/payment/verify-payment`,
                 response
             );
 
             if (verify.data.success) {
+               await axios.post("/api/order/place", {
+    address,
+    paymentMethod: "Online Payment",
+    paymentId: response.razorpay_payment_id,
+  });
                 toast.success("Payment Successful");
                 navigate("/my-orders");
             }
@@ -45,6 +50,10 @@ const Checkout = () => {
   const handleCheckout = async () => {
     if (!address) {
       toast.error("Please enter your address");
+      return;
+    }
+    if(paymentMethod === "Online Payment"){
+      handlePayment();
       return;
     }
     try {
@@ -109,19 +118,16 @@ const Checkout = () => {
               <span>Cash On Delivery</span>
             </label>
 
-            <label className="flex items-center space-x-3">
-              <input
-                type="radio"
-                name="payment"
-                value="Online Payment"
-                checked={paymentMethod === "Online Payment"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="text-green-600 focus:ring-green-500"
-              />
-           <button onClick={handlePayment}>
-    Pay Online
-</button>
-            </label>
+        <label className="flex items-center space-x-3">
+  <input
+    type="radio"
+    name="payment"
+    value="Online Payment"
+    checked={paymentMethod === "Online Payment"}
+    onChange={(e) => setPaymentMethod(e.target.value)}
+  />
+  <span>Online Payment</span>
+</label>
           </div>
         </div>
 
