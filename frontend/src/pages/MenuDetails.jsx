@@ -96,18 +96,47 @@ const MenuDetails = () => {
                 {menu.description}
               </p>
             </div>
+
+            {/* Quantity Selector */}
+            <div className="flex items-center justify-between bg-gray-50 rounded-2xl p-6">
+              <span className="text-gray-800 font-semibold text-lg">Quantity</span>
+              <div className="flex items-center gap-3 border border-gray-300 rounded-full px-4 py-2 bg-white">
+                <button
+                  type="button"
+                  onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                  disabled={!menu.isAvailable || quantity <= 1}
+                  className="text-gray-700 hover:text-yellow-600 disabled:opacity-40 font-bold text-xl px-2 cursor-pointer"
+                >
+                  -
+                </button>
+                <span className="text-lg font-semibold text-gray-800 min-w-[24px] text-center">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity((prev) => prev + 1)}
+                  disabled={!menu.isAvailable}
+                  className="text-gray-700 hover:text-yellow-600 disabled:opacity-40 font-bold text-xl px-2 cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
             {/* Total and Add to Cart */}
             <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-2xl p-6 shadow-xl">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-white text-lg font-semibold">
                   Total Amount
                 </span>
-                <span className="text-white text-3xl font-bold"> ₹20</span>
+                <span className="text-white text-3xl font-bold">
+                  ₹{menu.price * quantity}
+                </span>
               </div>
 
               <button
                 disabled={!menu.isAvailable}
-                onClick={() => addToCart(menu._id)}
+                onClick={() => addToCart(menu._id, quantity)}
                 className={` cursor-pointer w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 ${
                   menu.isAvailable
                     ? "bg-white text-yellow-600 hover:bg-gray-50 hover:scale-105 active:scale-95 shadow-lg"

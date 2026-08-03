@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 const Navbar = () => {
-  const { navigate, user, setUser, axios, cartCount } = useContext(AppContext);
+  const { navigate, user, setUser, axios, cartCount, setCart } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -21,6 +21,7 @@ const Navbar = () => {
       const { data } = await axios.post("/api/auth/logout");
       if (data.success) {
         setUser(null);
+        setCart({ items: [] });
         toast.success(data.message);
         navigate("/");
       }

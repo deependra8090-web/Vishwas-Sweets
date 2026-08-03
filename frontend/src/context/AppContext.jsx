@@ -50,36 +50,70 @@ const AppContextProvider = ({ children }) => {
   // ✅ Cart item count
   const cartCount = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
-  // ✅ Add to cart
- const addToCart = async (menuId) => {
-  if (!user) { // or !isAuthenticated
-    navigate("/login");
-    return;
-  }
-
-  try {
-    const { data } = await axios.post(
-      "/api/cart/add",
-      {
-        menuId,
-        quantity: 1,
-      },
-      { withCredentials: true }
-    );
-
-    if (data.success) {
-      toast.success("Item added to cart");
-      await fetchCartData(); // Refresh cart data after adding item
-    }
-  } catch (error) {
-    if (error.response?.status === 401) {
+  // ✅ Add to cart with custom quantity
+  const addToCart = async (menuId, quantity = 1) => {
+    if (!user) {
       navigate("/login");
       return;
     }
 
-    toast.error(error.response?.data?.message || "Something went wrong");
-  }
-};
+    try {
+      const { data } = await axios.post(
+        "/api/cart/add",
+        {
+          menuId,
+          quantity: Number(quantity) || 1,
+        },
+        { withCredentials: true }
+      );
+
+      if (data.success) {
+        toast.success("Item added to cart");
+        if (data.cart) {
+          setCart(data.cart);
+        } else {
+          await fetchCartData();
+        }
+      }
+    } catch (error) {
+      if (error.response?.status === 401) {
+        navigate("/login");
+        return;
+      }
+
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  // ✅ Update cart quantity
+  const updateCartQuantity = async (menuId, quantity) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(
+        "/api/cart/update",
+        {
+          menuId,
+          quantity,
+        },
+        { withCredentials: true }
+      );
+
+      if (data.success) {
+        if (data.cart) {
+          setCart(data.cart);
+        } else {
+          await fetchCartData();
+        }
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update quantity");
+    }
+  };
+
   // ✅ Fetch categories
   const fetchCategories = async () => {
     try {
@@ -147,8 +181,10 @@ const AppContextProvider = ({ children }) => {
     menus,
     fetchMenus,
     addToCart,
+    updateCartQuantity,
     cartCount,
     cart,
+    setCart,
     totalPrice,
     fetchCartData,
   };

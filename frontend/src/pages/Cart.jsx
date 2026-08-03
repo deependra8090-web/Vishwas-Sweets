@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 const Cart = () => {
-  const { cart, totalPrice, navigate, axios, fetchCartData } =
+  const { cart, totalPrice, navigate, axios, fetchCartData, updateCartQuantity } =
     useContext(AppContext);
 
   if (!cart || !cart.items || cart.items.length === 0) {
@@ -37,10 +37,10 @@ const Cart = () => {
           <thead className="bg-gray-100">
             <tr>
               <th className="py-3 px-4 text-left text-gray-700">Item</th>
-              <th className="py-3 px-4 text-left text-gray-700">Qty</th>
-              <th className="py-3 px-4 text-left text-gray-700">Price</th>
-              <th className="py-3 px-4 text-left text-gray-700">Total</th>
-              <th className="py-3 px-4 text-left text-gray-700">Action</th>
+              <th className="py-3 px-4 text-center text-gray-700">Qty</th>
+              <th className="py-3 px-4 text-center text-gray-700">Price</th>
+              <th className="py-3 px-4 text-center text-gray-700">Total</th>
+              <th className="py-3 px-4 text-center text-gray-700">Action</th>
             </tr>
           </thead>
 
@@ -49,38 +49,70 @@ const Cart = () => {
               <tr key={item._id} className="border-t hover:bg-gray-50">
                 <td className="py-3 px-4 flex items-center space-x-3">
                   <img
-                    src={item.menuItem.image}
-                    alt={item.menuItem.name}
+                    src={item.menuItem?.image}
+                    alt={item.menuItem?.name}
                     className="w-12 h-12 rounded object-cover"
                   />
                   <span className="font-medium text-gray-800">
-                    {item.menuItem.name}
+                    {item.menuItem?.name}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-center text-gray-700">
-                  {item.quantity}
+
+                {/* Quantity Add/Reduce Selector */}
+                <td className="py-3 px-4 text-center">
+                  <div className="flex items-center justify-center space-x-2">
+                    <button
+                      onClick={() =>
+                        updateCartQuantity(item.menuItem._id, item.quantity - 1)
+                      }
+                      className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-yellow-500 hover:text-white transition font-bold text-sm cursor-pointer"
+                      title="Reduce quantity"
+                    >
+                      -
+                    </button>
+                    <span className="font-semibold text-gray-800 w-6 text-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() =>
+                        updateCartQuantity(item.menuItem._id, item.quantity + 1)
+                      }
+                      className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 hover:bg-yellow-500 hover:text-white transition font-bold text-sm cursor-pointer"
+                      title="Add quantity"
+                    >
+                      +
+                    </button>
+                  </div>
                 </td>
+
                 <td className="py-3 px-4 text-center text-gray-700">
-                  $. {item.menuItem.price}
+                  ₹{item.menuItem?.price}
                 </td>
                 <td className="py-3 px-4 text-center text-gray-700 font-semibold">
-                  $. {item.menuItem.price * item.quantity}
+                  ₹{item.menuItem?.price * item.quantity}
                 </td>
                 <td className="py-3 px-4 text-center text-gray-700 font-semibold">
-                  <X onClick={() => removeFromCart(item.menuItem._id)} />
+                  <button
+                    onClick={() => removeFromCart(item.menuItem._id)}
+                    className="text-red-500 hover:text-red-700 p-1.5 rounded-full hover:bg-red-50 transition cursor-pointer"
+                    title="Remove item"
+                  >
+                    <Trash2 className="w-5 h-5 mx-auto" />
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
       <div className="flex justify-between items-center mt-6">
         <h3 className="text-xl font-semibold">
-          Total: <span className="text-green-600">${totalPrice}</span>
+          Total: <span className="text-green-600 font-bold">₹{totalPrice}</span>
         </h3>
         <button
           onClick={() => navigate("/checkout")}
-          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+          className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-semibold cursor-pointer"
         >
           Checkout
         </button>
@@ -89,3 +121,4 @@ const Cart = () => {
   );
 };
 export default Cart;
+
