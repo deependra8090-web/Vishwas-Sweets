@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
+import orangeMarker from "../assets/marker-icon-orange.png";
 
 
 // Restaurant Locations
@@ -28,13 +29,8 @@ const mapCenter = [
 
 // Custom Marker Icon
 
-const restaurantIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
-
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-
+const orangeIcon= new L.Icon({
+   iconUrl: orangeMarker,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -331,7 +327,7 @@ const Contact = () => {
 
                   position={restaurant1}
 
-                  icon={restaurantIcon}
+                  icon={orangeIcon}
 
                 >
 
@@ -396,7 +392,7 @@ const Contact = () => {
 
                   position={restaurant2}
 
-                  icon={restaurantIcon}
+                  icon={orangeIcon}
 
                 >
 
