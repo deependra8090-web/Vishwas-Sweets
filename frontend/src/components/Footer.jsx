@@ -26,36 +26,54 @@ const Footer = () => {
         </div>
 
         {/* Contact Info */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-          <ul className="space-y-3 text-gray-400">
-            <li className="flex items-center gap-2">
-              
-              <FaMapMarkerAlt />
-              Nahar Road Jankipuram Lucknow, Uttar Pradesh
-            </li>
-            <li className="flex items-center gap-2">
-              <FaPhoneAlt />
-              +91 8853928885
-            </li>
-            <li className="flex items-center gap-2">
-              <FaEnvelope />
-             vishwassweetsinfo@gmail.com
-            </li>
-          </ul>
-        </div>
-          < div>
-          <h3 className="text-lg font-semibold mb-4">Our Branch</h3>
-          <ul className="space-y-3 text-gray-400">
-            <li className="flex items-center gap-2">
-              
-              <FaMapMarkerAlt />
-              60 feet  Road Jankipuram Lucknow, Uttar Pradesh
-            </li>
-            
-          </ul>
-        </div>
+     
 
+<div>
+  <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+
+  <ul className="space-y-3 text-gray-400">
+    <li>
+      <a
+        href="https://maps.app.goo.gl/dXD55uDu1mbnw5r17"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 hover:text-white transition-colors"
+      >
+        <FaMapMarkerAlt />
+        <span>Nahar Road Jankipuram Lucknow, Uttar Pradesh</span>
+      </a>
+    </li>
+
+    <li className="flex items-center gap-2">
+      <FaPhoneAlt />
+      +91 8853928885
+    </li>
+
+    <li className="flex items-center gap-2">
+      <FaEnvelope />
+      vishwassweetsinfo@gmail.com
+    </li>
+  </ul>
+</div>
+
+{/* Our Branch */}
+<div>
+  <h3 className="text-lg font-semibold mb-4">Our Branch</h3>
+
+  <ul className="space-y-3 text-gray-400">
+    <li>
+      <a
+        href="https://maps.app.goo.gl/wW5ii7CqyTSxkUPcA"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 hover:text-white transition-colors"
+      >
+        <FaMapMarkerAlt />
+        <span>60 Feet Road Jankipuram Lucknow, Uttar Pradesh</span>
+      </a>
+    </li>
+  </ul>
+</div>
         {/* Opening Hours */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
