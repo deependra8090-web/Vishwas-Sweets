@@ -8,7 +8,7 @@ const Categories = () => {
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-4">
-          Explore Our <span className="text-yellow-500">Categories</span>
+          Explore Our <span className="text-yellow-500">Delicious Collection</span>
         </h2>
 
         <p className="mb-10 text-gray-600">
