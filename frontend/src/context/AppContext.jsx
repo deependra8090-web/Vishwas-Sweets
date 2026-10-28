@@ -8,13 +8,28 @@ export const AppContext = createContext();
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;
 
+const MENUS_CACHE_KEY = "vishwas-sweets-menus";
+
+const getCachedMenus = () => {
+  try {
+    const cachedMenus = localStorage.getItem(MENUS_CACHE_KEY);
+    if (!cachedMenus) return [];
+
+    const parsedMenus = JSON.parse(cachedMenus);
+    return Array.isArray(parsedMenus) ? parsedMenus : [];
+  } catch (error) {
+    console.warn("Unable to read cached menus:", error);
+    return [];
+  }
+};
+
 const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState(getCachedMenus);
   const [cart, setCart] = useState({ items: [] });
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -134,6 +149,11 @@ const AppContextProvider = ({ children }) => {
       const { data } = await axios.get("/api/menu/all");
       if (data.success) {
         setMenus(data.menuItems);
+        try {
+          localStorage.setItem(MENUS_CACHE_KEY, JSON.stringify(data.menuItems));
+        } catch (error) {
+          console.warn("Unable to cache menus:", error);
+        }
       } else {
         console.log("Failed to fetch menus");
       }

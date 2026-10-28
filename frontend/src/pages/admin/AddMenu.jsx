@@ -3,7 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { useState, useContext } from "react";
 import toast from "react-hot-toast";
 const AddMenu = () => {
-  const { axios, navigate, loading, setLoading, categories } =
+  const { axios, navigate, loading, setLoading, categories, fetchMenus } =
     useContext(AppContext);
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +38,7 @@ const AddMenu = () => {
       });
       if (data.success) {
         toast.success(data.message);
+        fetchMenus();
         navigate("/admin/menus");
       } else {
         toast.error(data.message);

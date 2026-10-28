@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { Search, X } from "lucide-react";
 import MenuCard from "../components/MenuCard";
@@ -9,9 +9,7 @@ const Menu = () => {
   const { categoryId } = useParams();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredMenus, setFilteredMenus] = useState([]);
-
-  useEffect(() => {
+  const filteredMenus = useMemo(() => {
     let filtered = menus;
 
     // Filter by category
@@ -30,7 +28,7 @@ const Menu = () => {
       );
     }
 
-    setFilteredMenus(filtered);
+    return filtered;
   }, [menus, searchQuery, categoryId]);
 
   const handleClearSearch = () => {
